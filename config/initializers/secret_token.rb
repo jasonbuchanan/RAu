@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-RAu::Application.config.secret_key_base = '3dc1040d5e3b1d92228a8391c270493239b64efa39b226d8e8975b91d77aaa8f78814117700bc7f78de5aa99873f662748b7965dc430a686f0e6c3252d5884fa'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+RAu::Application.config.secret_key_base = secure_token

@@ -1,0 +1,25 @@
+<h1>Listing pogs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pogs.each do |pog| %>
+      <tr>
+        <td><%= link_to 'Show', pog %></td>
+        <td><%= link_to 'Edit', edit_pog_path(pog) %></td>
+        <td><%= link_to 'Destroy', pog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pog', new_pog_path %>
